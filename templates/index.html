@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <title>Markov Chain Generator</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    </head>
+    <body>
+        <div class="container text-center mt-4">
+            <h1>Markov Chain Generator</h1>
+            <p>Generate Markov chain model from your tweets.csv or normal text file.</p>
+            <p>You can save the model and try to generate sentence from your model.</p>
+            <p>This program uses <a href="https://github.com/jsvine/markovify" target="_blank">jsvine/markovify</a>.</p>
+            {% if htmldisp.error %}
+            <div class="card mb-3">
+                <h4 class="card-header bg-danger text-white">Error!</h4>
+                <div class="card-body">
+                    <p>{{ htmldisp.error }}</p>
+                </div>
+            </div>
+            {% endif %}
+            {% if htmldisp.success %}
+            <div class="card mb-3">
+                <h4 class="card-header bg-success text-white">Success!</h4>
+                <div class="card-body">
+                    <p>{{ htmldisp.success }}</p>
+                </div>
+            </div>
+            {% endif %}
+            {% if htmldisp.sentence %}
+            <div class="card mb-3">
+                <h4 class="card-header bg-info text-white">Result</h4>
+                <div class="card-body">
+                    <p>{{ htmldisp.sentence }}</p>
+                    <p><a class="twitter-share-button" href="https://twitter.com/intent/tweet?text={{ htmldisp.sentence | urlencode }}">Tweet</a></p>
+                </div>
+            </div>
+            {% endif %}
+            <form method="post" action="/">
+                <h3>Generate sentence from Markov chain</h3>
+                <div class="form-group">
+                    <label><input type="text" name="filename" class="form-control" placeholder="Twitter screen name" value="{{ filename if filename else 'cordx56' }}" /></label>
+                </div>
+                <div class="form-group">
+                    <label>start with: <input type="text" name="startWith" class="form-control" placeholder="Generated text start with this word" value="{{ htmldisp.startWith if htmldisp.startWith }}" /></label>
+                </div>
+                <div class="form-group">
+                    <label>length: <input type="number" name="length" class="form-control" placeholder="Maximum length of generated text" value="{{ htmldisp.length if htmldisp.length }}" /></label>
+                </div>
+                <p><input type="submit" class="btn btn-primary" value="Generate Sentence!" /></p>
+            </form>
+            <h3>Generate your Markov chain</h3>
+        <p>Generate your Markov chain model from your Twitter account</p>
+        <p><a href="/twitter/authLink?callback=https://markov.cordx.net/twitter/authAndGen"><img src="/resources/sign-in-with-twitter-link.png" /></a></p>
+            <p class="mt-5">About</p>
+            <p><a href="/cordx56">かおるこジェネレータ</a></p>
+            <p><a href="https://www.amazon.co.jp/dp/B079P35Y57/" target="_blank">エピローグ - 円城塔</a></p>
+            <p><a href="https://www.amazon.co.jp/dp/B079HQQ5B7/" target="_blank">プロローグ - 円城塔</a></p>
+        </div>
+<script>window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));</script>
+    </body>
+</html>

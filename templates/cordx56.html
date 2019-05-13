@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <title>かおるこジェネレータ</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    </head>
+    <body>
+        <div class="container text-center mt-4">
+            <h1>かおるこジェネレータ</h1>
+            <p>以下のパラメータを指定して、かおるこっぽい文章を生成しよう！</p>
+            <p>このプログラムは<a href="https://github.com/jsvine/markovify" target="_blank">jsvine/markovify</a>を利用しています。</p>
+            {% if htmldisp.sentence %}
+            <h3>生成結果</h3>
+            <p>{{ htmldisp.sentence }}</p>
+		<p><a class="twitter-share-button" href="https://twitter.com/intent/tweet?text={{ htmldisp.sentence | urlencode }}">Tweet</a></p>
+            {% endif %}
+            <form method="post">
+                <div class="form-group form-group-lg">
+			    <label style="width: 80%;">start with: <input type="text" name="startWith" class="form-control" placeholder="Generated text start with this word" value="{{ htmldisp.startWith if htmldisp.startWith }}" /></label>
+                </div>
+                <div class="form-group form-group-lg">
+			    <label style="width: 80%;">length: <input type="number" name="length" class="form-control" placeholder="Maximum length of generated text" value="{{ htmldisp.length if htmldisp.length }}" /></label>
+                </div>
+                <input type="submit" class="btn btn-primary" value="Generate!" />
+            </form>
+            <p class="mt-5">かおるこジェネレータについて</p>
+            <p>汎用版: <a href="/">Markov Chain Generator</a></p>
+		<p>（マルコフ連鎖とかn番煎じなのに、2019年にもなってまだやってるのか……）</p>
+            <p><a href="https://www.amazon.co.jp/dp/B079P35Y57/" target="_blank">エピローグ - 円城塔</a></p>
+            <p><a href="https://www.amazon.co.jp/dp/B079HQQ5B7/" target="_blank">プロローグ - 円城塔</a></p>
+            <p>
+                「<a href="https://www.amazon.co.jp/dp/B00WGS4L18/" target="_blank">リスを実装する</a>」とか「<a href="https://www.amazon.co.jp/dp/B07G939VTR/" target="_blank">チュートリアル</a>」とかは短くて面白いのでおすすめです。
+            </p>
+        </div>
+<script>window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));</script>
+    </body>
+</html>
