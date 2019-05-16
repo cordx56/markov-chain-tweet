@@ -1,0 +1,16 @@
+version: '2'
+services:
+  markovserver:
+    build: .
+    volumes:
+      - ./chainfiles:/script/chainfiles
+  https-portal:
+    image: steveltn/https-portal:1
+    ports:
+      - 80:80
+      - 443:443
+    links:
+      - markovserver
+    restart: always
+    environment:
+      DOMAINS: "markov.cordx.net -> http://markovserver:5000"
